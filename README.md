@@ -8,26 +8,20 @@ A flask template with mongodb and vue-js for quick start of development.
 
 ## Create a new project from this template
 ```bash
-setopt interactive_comments # Allow comments
-# Set the new project name & remote repo path
-new_project_name = 'my_project'
-project_remote_repo_path = 'project_repo_url'
-# Clone the template repo
+setopt interactive_comments
+NEW_PROJECT_NAME='my_project'
+PROJECT_REMOTE_REPO_PATH='project_repo_url'
 git clone https://github.com/fruecker/flask-mongodb-template.git
-# Create the new project dir
-mkdir $new_project_name
-# Copy all template files to new project dir
-cp -r flask-mongodb-template/ $new_project_name
-# Cleanup the template
-rm -r flask-mongodb-template
-# Init new github repo
-cd $new_project_name
-git init
+mkdir $NEW_PROJECT_NAME
+cp -r flask-mongodb-template/ $NEW_PROJECT_NAME
+rm -rf flask-mongodb-template
+cd $NEW_PROJECT_NAME
+rm -rf .git
+git init -b main
 git add . && git commit -m "initial commit"
-# If project remote path was set push to remote repository
-if [ -z "$project_remote_repo_path" ]
+if [ "${PROJECT_REMOTE_REPO_PATH+x}" ]
 then
-    git remote add origin $project_remote_repo_path
+    git remote add origin $PROJECT_REMOTE_REPO_PATH
     git push -u origin main
 fi
 ```
