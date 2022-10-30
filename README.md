@@ -8,8 +8,7 @@ A flask template with mongodb and vue-js for quick start of development.
 
 ## Create a new project from this template
 ```bash
-# Allow comments
-setopt interactive_comments
+setopt interactive_comments # Allow comments
 # Set the new project name & remote repo path
 new_project_name = 'my_project'
 project_remote_repo_path = 'project_repo_url'
