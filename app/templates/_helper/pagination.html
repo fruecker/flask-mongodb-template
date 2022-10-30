@@ -1,0 +1,33 @@
+
+{# Macro for creating navigation links #}
+{% macro render_btn_group(pagination, endpoint, _class="") %}
+<nav class="btn-group {{_class}}" role="group">
+    {#
+        {% if pagination.has_prev %}
+        <a role="button" class="btn btn-primary" href={{url_for(endpoint,p=pagination.prev_num)}} aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+        {% endif %}
+    #}
+    {% for page in pagination.iter_pages(left_edge=1, left_current=2, right_current=2, right_edge=1) %}
+        {% if page %}
+            {% if page != pagination.page %}
+                <a role="button" class="btn btn-outline-primary" href="{{ url_for(endpoint, p=page) }}"> {{ page }}</a>
+            {% else %}
+                <a role="button" class="btn btn-primary" href="#">
+                    {{ page }}
+                </a>
+            {% endif %}
+        {% else %}
+            <span class=ellipsis>…</span>
+        {% endif %}
+    {% endfor %}
+    {#
+        {% if pagination.has_next %}
+        <a role="button" class="btn btn-primary" href={{url_for(endpoint,p=pagination.next_num)}} aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+        {% endif %}
+    #}
+</nav>
+{% endmacro %}

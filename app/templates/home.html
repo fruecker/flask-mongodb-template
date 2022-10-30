@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+    {# 
+        {% with current_page = "Home" %}
+            {% include "header/plain.html" %}
+        {% endwith %}
+    #}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="mb-3">
+    {% include "fragments/flash/banner.html" %}
+</div>
+
+<h3 class="text-center">Welcome To Flask MongoDB Template!</h3>
+
+{% endblock %}
