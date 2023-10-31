@@ -1,5 +1,6 @@
 
 import json
+import time
 from random import randint
 
 def get_random_from_list(array:list):
@@ -31,3 +32,8 @@ def populate_obj(obj, skip_none=False, **kwargs):
             if skip_none and (kwargs[attr] is None):
                 continue
             setattr(obj, attr, kwargs[attr])
+
+
+def sleep_random(start=1, end=2):
+    time.sleep(randint(start, end))
+    return

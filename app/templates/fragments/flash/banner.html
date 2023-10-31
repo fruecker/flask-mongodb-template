@@ -2,7 +2,7 @@
 {% if messages %}
 <div class="flash-container w-100">
     {% for category, message in messages %}
-    <div class="flash alert alert-{{category}} w-100 d-flex align-items-center">
+    <div class="flash alert alert-{{category}} w-100 d-flex align-items-center" role="alert">
         <span class="message">
             {{ message }}
         </span>

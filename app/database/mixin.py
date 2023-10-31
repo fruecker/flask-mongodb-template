@@ -39,5 +39,5 @@ class DocumentReferencer:
     def jsonify(self) -> json:
         return json_util.dumps(self.as_dict())
 
-    def load_dict_from_json(self) -> dict:
+    def as_jsonified_dict(self) -> dict:
         return json.loads(self.jsonify())
