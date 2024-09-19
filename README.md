@@ -2,9 +2,8 @@
 A flask template with mongodb and vue-js for quick start of development.
 
 ## Included (preset) dependencies
-- bootstrap v5.3
-- bootstrap icons v1.9
-- vue v2.7
+- bootstrap v5.3.3
+- bootstrap icons v1.11.3
 
 ## Install requirements
 
@@ -30,4 +29,4 @@ EMAIL_PORT      = "YOUR_EMAIL_HOSTING_PORT"
 
 ## Run the server (for debug)
 
-`python3 run.py --port 5050`
+`python3 run.py --port 5100`
