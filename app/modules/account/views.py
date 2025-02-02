@@ -7,8 +7,8 @@ import flask_login
 from app.database.models.user import User
 
 from app.decorators import admin_only, under_construction
-from app.modules.account.forms import AccountDataForm, CliqueForm, ForgotPasswordForm, LoginForm, PasswordResetForm, RegisterForm, VerifyStudentForm
-from app.utils.sites import site_map, url_has_allowed_host_and_scheme
+from app.modules.account.forms import AccountDataForm, ForgotPasswordForm, LoginForm, PasswordResetForm, RegisterForm
+from app.utils.sites import site_map
 
 
 # Import module forms

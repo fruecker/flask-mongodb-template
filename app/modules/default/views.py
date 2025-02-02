@@ -12,10 +12,12 @@ from app.utils.sites import site_map
 module = Blueprint("default", __name__)
 
 @module.route("/")
+@login_required
 def home():
     return flask.render_template("home.html")
 
 @module.route("/routes")
+@login_required
 def routes():
     links = site_map()
     links.extend(

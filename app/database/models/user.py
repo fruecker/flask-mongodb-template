@@ -35,7 +35,7 @@ class User(Document, UserMixin):
         'allow_inheritance': True,
         'indexes': [
             {
-                'fields': ['$email', '$username' "$firstname", "$lastname"],
+                'fields': ['$email', '$username', '$firstname', '$lastname'],
                 'default_language': 'german',
                 'weights': {'email': 10, 'username': 10, 'firstname': 5, 'lastname': 5,}
             }

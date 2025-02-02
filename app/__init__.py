@@ -41,6 +41,12 @@ def format_datetime(value, format="%d.%m.%Y %H:%M"):
 
 # Import modules (blueprints)
 from app.modules.default.views import module as blueprint_default
+from app.modules.account.views import module as blueprint_account
+from app.modules.admin.views import module as blueprint_admin
+from app.modules.api.v1.endpoints import module_api_v1 as blueprint_api_v1
 
 # Register those modules
 app.register_blueprint(blueprint_default, static_url_path=STATIC_DIR, template_folder=TEMPLATES_DIR)
+app.register_blueprint(blueprint_account, static_url_path=STATIC_DIR, template_folder=TEMPLATES_DIR)
+app.register_blueprint(blueprint_admin, static_url_path=STATIC_DIR, template_folder=TEMPLATES_DIR)
+app.register_blueprint(blueprint_api_v1)
