@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+{% with current_page = "Admin" %}
+{% include('fragments/navbar/expand.html') %}
+{% endwith %}
+{% endblock %}
+
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Function to toggle ascending/descending order
+    function toggleOrder(order) {
+        return order === 'asc' ? 'desc' : 'asc';
+    }
+
+    // Initialize order object for each column
+    var columnOrders = {
+        email: 'asc',  // Replace 'email' with the actual data field name
+        firstname: 'asc',
+        lastname: 'asc',
+        registered_date: 'asc',
+        validated_date: 'asc',
+        role: 'asc', 
+        // Add more columns and their initial orders here
+    };
+
+    // Get a reference to the table body
+    var tbody = $('tbody');
+
+    // Function to sort the table rows
+    function sortTable(column, order) {
+        // Get all the rows
+        var rows = tbody.find('tr').get();
+
+        // Sort the rows based on the selected column and order
+        rows.sort(function(a, b) {
+            var valA = $(a).find('td[data-column="' + column + '"]').text();
+            var valB = $(b).find('td[data-column="' + column + '"]').text();
+
+            if (order === 'asc') {
+                return valA.localeCompare(valB);
+            } else {
+                return valB.localeCompare(valA);
+            }
+        });
+
+        // Empty the table body and append the sorted rows
+        tbody.empty();
+        $.each(rows, function(index, row) {
+            tbody.append(row);
+        });
+    }
+
+    // Add a click event handler to table headers
+    $('th').click(function() {
+        var column = $(this).data('column');
+        var currentOrder = columnOrders[column];
+        var newOrder = toggleOrder(currentOrder);
+
+        // Remove sorting classes from all columns
+        $('th').removeClass('sorting-asc sorting-desc');
+        
+        // Add the appropriate sorting class to the clicked header
+        $(this).addClass('sorting-' + newOrder);
+
+        // Update the order for the clicked column
+        columnOrders[column] = newOrder;
+
+        // Sort the table rows and update the tbody
+        sortTable(column, newOrder);
+    });
+});
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<main class="container">
+    <div class="mb-3">
+        {% include "fragments/flash/banner.html" %}
+    </div>
+
+    <h3 class="text-center">Admin Bereich</h3>
+    <h4 class="text-center text-secondary">User Managment</h4>
+
+    <hr class="mt-3 mb-5">
+
+    <div class="my-4">
+
+        <div class="mb-3">
+            <form method="GET" onchange="this.submit()">
+                <div class="d-flex justify-content-center mb-2">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="ipp" id="btn5" value="5" {% if pagination.per_page == 5 %} checked {% endif %}>
+                        <label class="btn btn-outline-primary" for="btn5">5</label>
+
+                        <input type="radio" class="btn-check" name="ipp" id="btn25" value="25" {% if pagination.per_page == 25 %} checked {% endif %}>
+                        <label class="btn btn-outline-primary" for="btn25">25</label>
+                        
+                        <input type="radio" class="btn-check" name="ipp" id="btn100" value="100" {% if pagination.per_page == 100 %} checked {% endif %}>
+                        <label class="btn btn-outline-primary" for="btn100">100</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-8">
+                            <input type="search" name="q" id="q" class="form-control" placeholder="Nutzer durchsuchen..." value="{{last_query or ''}}">
+                        </div>
+                        <!-- <div class="col-4 d-flex justify-content-center"> -->
+                            <button type="submit" class="col-3 col-off-1 btn btn-outline-primary">
+                                Suchen
+                            </button>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="">
+                    <tr>
+                        <th data-column="email">Email</th>
+                        <th data-column="firstname">Vorname</th>
+                        <th data-column="lastname">Nachname</th>
+                        <th data-column="registered_date">Registriert am</th>
+                        <th data-column="validated_date">Validiert am</th>
+                        <th data-column="role">Rolle</th>
+                        <th>Logon</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for user in users %}
+                    <tr>
+                        <td data-column="email">{{ user.email or '' }}</td>
+                        <td data-column="firstname">{{ user.firstname or '' }}</td>
+                        <td data-column="lastname">{{ user.lastname or '' }}</td>
+                        <td data-column="registered_date">{{ user.created_at | text_datetime if user.created_at else '' }}</td>
+                        <td data-column="validated_date">
+                            {% if user.validated_at %}
+                            {{ user.validated_at | text_datetime if user.validated_at else '' }} 
+                            {% else %}
+                            <a href="{{ url_for('account.validate_resend', user_id=user.get_user_id())}}">Resend</a>
+                            {% endif %}
+                        </td>
+                        <td data-column="role">{{ user.role.value or '' }}</td>
+                        <td>
+                            <a href="{{ url_for('account.logon', user_id=user.get_user_id())}}"><i class="bi bi-box-arrow-right fs-3"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination justify-content-center">
+            {{ pagination.links }}
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block footer %}
+{% include('fragments/footer/basic.html') %}
+{% endblock %}

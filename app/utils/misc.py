@@ -3,11 +3,6 @@ import json
 import time
 from random import randint
 
-def get_random_from_list(array:list):
-    if not array:
-        return None
-    return array[randint(0, len(array)-1)]
-
 
 def find_next_lowest_number_in_list(array:list, start_value=1):
     number = start_value

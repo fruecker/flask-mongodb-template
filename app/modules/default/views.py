@@ -9,13 +9,13 @@ from app.utils.sites import site_map
 
 
 # Import module forms
-module_default = Blueprint("default", __name__)
+module = Blueprint("default", __name__)
 
-@module_default.route("/")
+@module.route("/")
 def home():
     return flask.render_template("home.html")
 
-@module_default.route("/routes")
+@module.route("/routes")
 def routes():
     links = site_map()
     links.extend(

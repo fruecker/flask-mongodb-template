@@ -1,0 +1,38 @@
+POST http://127.0.0.1:5100/api/v1/order/paid
+Content-Type: application/json
+
+{
+    "contact": {
+        "Name": {
+            "First": "John",
+            "Last": "Doe"
+        },
+        "Email": ["test@gmail.com", "test2@gmail.com"],
+        "Address": [
+            {
+                "Street": "3456 Side St",
+                "Zip": "98765",
+                "Country": "CA"
+            },
+            {
+                "Street": "1234 Main St",
+                "City": "Anytown"
+            }
+        ]
+    },
+    "product": {
+        "price": "1.0",
+        "name": "Test123"
+    },
+    "product-ids": ["0967e040-aecc-8165-8cb2-26b36b42e7ae"]
+}
+
+###
+
+POST http://127.0.0.1:5100/api/v1/ticket/create
+Content-Type: application/json
+
+{
+    "year": "2023",
+    "code": "123141123"
+}

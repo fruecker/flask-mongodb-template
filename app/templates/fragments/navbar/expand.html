@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg py-3 mb-4 border-bottom shadow-sm bg-white">
+    <div class="container-fluid">
+        <a href="{{url_for('default.home')}}" class="navbar-brand">Flask Template</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-expand">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-expand">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if current_page == "Home" %}
+                <li class="nav-item"><a href="{{url_for('default.home')}}" class="nav-link active">Home</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{{url_for('default.home')}}" class="nav-link">Home</a></li>
+                {% endif %}
+                {% if current_page == "Account" %}
+                <li class="nav-item"><a href="{{url_for('account.profile')}}" class="nav-link active">Account</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{{url_for('account.profile')}}" class="nav-link">Account</a></li>
+                {% endif %}
+                {% if current_user.is_admin() %}
+                <li class="nav-item"><a href="{{url_for('admin.home')}}" class="nav-link">Admin</a></li>
+                {% endif %}
+                <li class="nav-item"><a href="{{url_for('account.logout')}}" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

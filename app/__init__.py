@@ -30,11 +30,17 @@ TEMPLATES_DIR, STATIC_DIR, ROOT_DIR = setup_directories()
 # https://flask.palletsprojects.com/en/2.0.x/templating/#context-processors
 @app.context_processor
 def inject_template_scope():
-    injections = dict()
+    injections = dict(
+        # injected_var_name =os.environ.get('injected_var_name', 'default_value'),
+        )
     return injections
 
+@app.template_filter('text_datetime')
+def format_datetime(value, format="%d.%m.%Y %H:%M"):
+    return value.strftime(format)
+
 # Import modules (blueprints)
-from app.modules.default.views import module_default as blueprint_default
+from app.modules.default.views import module as blueprint_default
 
 # Register those modules
 app.register_blueprint(blueprint_default, static_url_path=STATIC_DIR, template_folder=TEMPLATES_DIR)
