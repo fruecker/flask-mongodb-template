@@ -104,10 +104,10 @@ class User(Document, UserMixin):
         return bool(self.validated_at)
     
     @classmethod
-    def register(cls, form, **kwargs) -> bool:
+    def register_from_form(cls, form, **kwargs) -> bool:
         """Registers the user with passed data"""
 
-        kwargs.setdefault('created', get_utc_now())
+        kwargs.setdefault('created_at', get_utc_now())
 
         user = cls(**kwargs)
         # Caution: Make sure to set email and/or username to small letters
